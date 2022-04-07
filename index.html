@@ -29,32 +29,47 @@
         // cube 1
         const geometry = new THREE.CylinderGeometry(2,2,7,9);
         const material = new THREE.MeshBasicMaterial( {color: 0xffff00, wireframe:true, wireframeLinewidth:10} );
-        const cube = new THREE.Mesh( geometry, material );
-        scene.add( cube );
+        const yellow = new THREE.Mesh( geometry, material );
 
 
 
         // cube 2
         const geometry2 = new THREE.CylinderGeometry(2,2,11,9);
         const material2 = new THREE.MeshBasicMaterial( {color: 0xf11f00, wireframe:true, wireframeLinewidth:10} );
-        const cube2 = new THREE.Mesh( geometry2, material2 );
-        scene.add( cube ,cube2);
+        const red = new THREE.Mesh( geometry2, material2 );
 
-        cube2.position.y = cube.position.y+2
-        cube2.position.x = cube.position.x+5
-        cube2.rotation.z = 1.6
+        red.position.y = yellow.position.y+2
+        red.position.x = yellow.position.x+5
+        red.rotation.z = 1.6
         // cube 3
         const geometry3 = new THREE.CylinderGeometry(2,2,11,9);
         const material3 = new THREE.MeshBasicMaterial( {color: 0xf116b1, wireframe:true, wireframeLinewidth:10} );
-        const cube3 = new THREE.Mesh( geometry3, material3 );
-        scene.add( cube ,cube3);
+        const pink = new THREE.Mesh( geometry3, material3 );
+        
+        pink.position.y = red.position.y+5
+        pink.position.x = red.position.x+3.5
+        red.rotation.z = 1.6
+        
+        scene.add( yellow ,red,pink);
+        window.cube = red
 
-        cube3.position.y = cube2.position.y+5
-        cube3.position.x = cube2.position.x+3.5
-        cube2.rotation.z = 1.6
-        window.cube = cube2
+        group = new THREE.Group();
 
+        group2 =  new THREE.Group();
+
+        group.add(pink);
+        group.add(red);
+
+        group2.add(yellow);
+        group2.add(group);
+        group.position.set( 0.0, 0.0, 0 );
+        // window.group.rotateOnAxis(new THREE.Vector3( 1, 0, 0 ),12)
+        // https://discourse.threejs.org/t/how-to-rotate-an-object-around-a-pivot-point/6838
+        scene.add(group2);
         window.camera = camera
+
+        window.group = group
+        window.group2 = group2
 
         camera.position.z = 15;
 
