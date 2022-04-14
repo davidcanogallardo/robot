@@ -55,28 +55,27 @@
         // cube 2
         const geometry2 = new THREE.CylinderGeometry(2,2,5,9);
         const material2 = new THREE.MeshBasicMaterial( {color: 0xf11f00, wireframe:true, wireframeLinewidth:10} );
-        const red = new THREE.Mesh( geometry2, material2 );
+        const red1 = new THREE.Mesh( geometry2, material2 );
 
-        red.position.y = yellow.position.y+0.5
-        red.position.x = yellow.position.x+5
-        red.rotation.z = 1.6
+        red1.position.y = yellow.position.y+0.5
+        red1.position.x = yellow.position.x+5
+        red1.rotation.z = 1.6
         // cube 3
         const geometry3 = new THREE.CylinderGeometry(2,2,11,9);
         const material3 = new THREE.MeshBasicMaterial( {color: 0xf11f00, wireframe:true, wireframeLinewidth:10} );
-        const pink = new THREE.Mesh( geometry3, material3 );
+        const red2 = new THREE.Mesh( geometry3, material3 );
         
-        pink.position.y = red.position.y+5
-        pink.position.x = red.position.x+3.5
-        red.rotation.z = 1.6
+        red2.position.y = red1.position.y+5
+        red2.position.x = red1.position.x+3.5
 
         // cube 2 2
         const geometry4 = new THREE.CylinderGeometry(2,2,5,9);
         const material4 = new THREE.MeshBasicMaterial( {color: 0xf116b1, wireframe:true, wireframeLinewidth:10} );
-        const red2 = new THREE.Mesh( geometry4, material4 );
+        const pink1 = new THREE.Mesh( geometry4, material4 );
 
-        red2.position.y = pink.position.y+4.2
-        red2.position.x = pink.position.x-3
-        red2.rotation.z = 1.6
+        pink1.position.y = red2.position.y+4.2
+        pink1.position.x = red2.position.x-3
+        pink1.rotation.z = 1.6
         // red2.rotation.x = 1.6
 
         // cube 3 2
@@ -84,67 +83,67 @@
         const material5 = new THREE.MeshBasicMaterial( {color: 0xf116b1, wireframe:true, wireframeLinewidth:10} );
         const pink2 = new THREE.Mesh( geometry5, material5 );
         
-        pink2.position.y = red2.position.y+5
-        pink2.position.x = red2.position.x-3
+        pink2.position.y = pink1.position.y+5
+        pink2.position.x = pink1.position.x-3
 
        // cube 2 3
        const geometry6 = new THREE.CylinderGeometry(2,2,5,9);
         const material6 = new THREE.MeshBasicMaterial( {color: 0xffa500, wireframe:true, wireframeLinewidth:10} );
-        const red3 = new THREE.Mesh( geometry6, material6 );
+        const orange1 = new THREE.Mesh( geometry6, material6 );
 
-        red3.position.y = pink2.position.y-5
-        red3.position.x = pink2.position.x+1
-        red3.rotation.z = 1.6
+        orange1.position.y = pink2.position.y-5
+        orange1.position.x = pink2.position.x+1
+        orange1.rotation.z = 1.6
         
         // cube 3 3
         const geometry7 = new THREE.CylinderGeometry(2,2,6,9);
         const material7 = new THREE.MeshBasicMaterial( {color: 0xffa500, wireframe:true, wireframeLinewidth:10} );
-        const pink3 = new THREE.Mesh( geometry7, material7 );
+        const orange2 = new THREE.Mesh( geometry7, material7 );
         
-        pink3.position.y = red3.position.y+1.5
-        pink3.position.x = red3.position.x+3.5
+        orange2.position.y = orange1.position.y+1.5
+        orange2.position.x = orange1.position.x+3.5
         // scene.add(yellow,red,pink,red2,pink2, red3,pink3);
         // window.cube = yellow
 
-        group3 = new THREE.Group();
-        group3.position.y =red3.position.y-20
-        group3.add(pink3)
-        group3.add(red3)
+        var orangeGroup = new THREE.Group();
+        orangeGroup.position.y =orange1.position.y-20
+        orangeGroup.add(orange2)
+        orangeGroup.add(orange1)
         
-        var pivot3 = new THREE.Object3D();
-        pivot3.position.y = red3.position.y+9
-        pivot3.position.x = red3.position.x
-        pivot3.add( group3 );
+        var pivotGroup = new THREE.Object3D();
+        pivotGroup.position.y = orange1.position.y+9
+        pivotGroup.position.x = orange1.position.x
+        pivotGroup.add( orangeGroup );
 
 
-        group2 = new THREE.Group();
-        group2.position.y = red2.position.y-20
-        group2.position.x = red2.position.x-12
-        group2.add(pink2)
-        group2.add(red2)
-        group2.add(pivot3)
+        var pinkGroup = new THREE.Group();
+        pinkGroup.position.y = pink1.position.y-20
+        pinkGroup.position.x = pink1.position.x-12
+        pinkGroup.add(pink2)
+        pinkGroup.add(pink1)
+        pinkGroup.add(pivotGroup)
        
-        var pivot2 = new THREE.Object3D();
-        pivot2.position.y = red2.position.y
-        pivot2.position.x = red2.position.x
-        pivot2.add( group2 );
+        var pinkPivot = new THREE.Object3D();
+        pinkPivot.position.y = pink1.position.y
+        pinkPivot.position.x = pink1.position.x
+        pinkPivot.add( pinkGroup );
 
-        group = new THREE.Group();
-        group.position.y = yellow.position.y-1
-        group.position.x = yellow.position.x-6
-        group.add(pink)
-        group.add(red)
-        group.add(pivot2)
+        var redGroup = new THREE.Group();
+        redGroup.position.y = yellow.position.y
+        redGroup.position.x = yellow.position.x-5
+        redGroup.add(red2)
+        redGroup.add(red1)
+        redGroup.add(pinkPivot)
        
-        var pivot = new THREE.Object3D();
-        pivot.position.y = red.position.y
-        pivot.position.x = red.position.x
-        pivot.add( group );
+        var redPivot = new THREE.Object3D();
+        redPivot.position.y = red1.position.y+2
+        redPivot.position.x = red1.position.x
+        redPivot.add( redGroup );
 
-        all =  new THREE.Group();
+        var all =  new THREE.Group();
 
         all.add(yellow)
-        all.add(pivot)
+        all.add(redPivot)
 
         // ************************************++ rojo y rosa****************************************
         // group = new THREE.Group();
@@ -175,13 +174,13 @@
         // scene.add(pivot2);
 
         window.camera = camera
-        window.red3 = red3
+        window.red3 = orange1
         // window.group = group
         // window.group2 = group2
-        window.group3 = group3
-        window.pivot3 = pivot3
-        window.pivot2 = pivot2
-        window.pivot = pivot
+        window.orangeGroup = orangeGroup
+        window.pivotGroup = pivotGroup
+        window.pinkPivot = pinkPivot
+        window.redPivot = redPivot
         window.all = all
 
         // camera.position.z = 15;
@@ -189,9 +188,9 @@
         function animate() {
             requestAnimationFrame( animate );
             controls.update();
-            pivot.rotation.x = options.rojo
-            pivot2.rotation.x = options.rosa;
-            pivot3.rotation.x = options.naranja;
+            redPivot.rotation.x = options.rojo
+            pinkPivot.rotation.x = options.rosa;
+            pivotGroup.rotation.x = options.naranja;
             all.rotation.y = options.amarillo;
             // pivot.rotation.x += 0.01;
             // pivot2.rotation.x -= 0.001;
