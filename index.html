@@ -9,12 +9,22 @@
     <script src="https://threejs.org/build/three.js"></script>
     <script type="text/javascript" src="./libs/stats.js"></script>
     <script type="text/javascript" src="./libs/dat.gui.js"></script>
+    <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+
     <style>
         body { margin: 0; }
         </style>
 </head>
 <body>
     <script>
+        // gui
+        // var options = {
+        //     amarillo: 30,
+        //     z: 40
+        // };
+        // var gui = new dat.GUI();
+        // gui.add(options, 'amarillo', -200, 200).listen();
+        // gui.add(options, 'z', -200, 200).listen();
         // escena y cámara
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera( 100, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -25,6 +35,12 @@
         const renderer = new THREE.WebGLRenderer();
         renderer.setSize( window.innerWidth, window.innerHeight );
         document.body.appendChild( renderer.domElement );
+
+        // camara que gira con el click del raton
+        var controls = new THREE.OrbitControls( camera, renderer.domElement );
+        controls.target.set( 0, 0, 0 );
+
+
 
         // cube 1
         const geometry = new THREE.CylinderGeometry(2,2,7,9);
@@ -38,7 +54,7 @@
         const material2 = new THREE.MeshBasicMaterial( {color: 0xf11f00, wireframe:true, wireframeLinewidth:10} );
         const red = new THREE.Mesh( geometry2, material2 );
 
-        red.position.y = yellow.position.y+2
+        red.position.y = yellow.position.y+0.5
         red.position.x = yellow.position.x+5
         red.rotation.z = 1.6
         // cube 3
@@ -63,9 +79,15 @@
         group2.add(yellow);
         group2.add(group);
         group.position.set( 0.0, 0.0, 0 );
+        var pivot = new THREE.Object3D();
+        pivot.position.y = yellow.position.y+2
+        pivot.position.x = yellow.position.x+1
+        pivot.add( group );
+        window.pivot = pivot
         // window.group.rotateOnAxis(new THREE.Vector3( 1, 0, 0 ),12)
         // https://discourse.threejs.org/t/how-to-rotate-an-object-around-a-pivot-point/6838
         scene.add(group2);
+        scene.add(pivot);
         window.camera = camera
 
         window.group = group
