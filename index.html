@@ -136,8 +136,8 @@
         redGroup.add(pinkPivot)
        
         var redPivot = new THREE.Object3D();
-        redPivot.position.y = red1.position.y+2
-        redPivot.position.x = red1.position.x
+        redPivot.position.y = red1.position.y+1
+        redPivot.position.x = red1.position.x-0.5
         redPivot.add( redGroup );
 
         var all =  new THREE.Group();
@@ -145,45 +145,10 @@
         all.add(yellow)
         all.add(redPivot)
 
-        // ************************************++ rojo y rosa****************************************
-        // group = new THREE.Group();
-        // group.add(pink);
-        // group.add(pink2);
-        // group.add(pink3);
-        // group.add(red);
-        // group.add(red2);
-        // group.add(red3);
-        
-        // var pivot = new THREE.Object3D();
-        // pivot.position.y = yellow.position.y+1.6
-        // pivot.position.x = yellow.position.x-1.5
-        // pivot.add( group );
-        
-        // // ************************************++ rojo amarillo y rosa****************************************
-
-        
-        // group2 =  new THREE.Group();
-        // group2.add(yellow)
-        // group2.add(pivot)
-        
-
        
         scene.add(all);
-        // scene.add(group2);
-        // scene.add(group3);
-        // scene.add(pivot2);
 
         window.camera = camera
-        window.red3 = orange1
-        // window.group = group
-        // window.group2 = group2
-        window.orangeGroup = orangeGroup
-        window.pivotGroup = pivotGroup
-        window.pinkPivot = pinkPivot
-        window.redPivot = redPivot
-        window.all = all
-
-        // camera.position.z = 15;
 
         function animate() {
             requestAnimationFrame( animate );
@@ -192,11 +157,6 @@
             pinkPivot.rotation.x = options.rosa;
             pivotGroup.rotation.x = options.naranja;
             all.rotation.y = options.amarillo;
-            // pivot.rotation.x += 0.01;
-            // pivot2.rotation.x -= 0.001;
-            // pivot3.rotation.x -= 0.0001;
-            // all.rotation.y += 0.01;
-            // cube.rotation.y += 0.01;
 
             renderer.render( scene, camera );
         };
