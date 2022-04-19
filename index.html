@@ -10,6 +10,7 @@
     <script type="text/javascript" src="./libs/stats.js"></script>
     <script type="text/javascript" src="./libs/dat.gui.js"></script>
     <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+    <script type="text/javascript" src="./node_modules/socket.io/client-dist/socket.io.js"></script>
 
     <style>
         body { margin: 0; }
@@ -17,7 +18,26 @@
 </head>
 <body>
     <script>
-        gui
+      var socket = io("ws://192.168.1.138:3000");
+    </script>
+
+    <script>
+        socket.on('updateClient', function(msg) {
+            console.log("posiciones actualizadas");
+            if (msg.amarillo != options.amarillo) {
+                options.amarillo = msg.amarillo;
+            }
+            if (msg.rojo != options.rojo) {
+                options.rojo = msg.rojo
+            }
+            if (msg.rosa != options.rosa) {
+                options.rosa = msg.rosa;
+            }
+            if (msg.naranja != options.naranja) {
+                options.naranja = msg.naranja;
+            }
+        });
+
         var options = {
             amarillo: 0,
             rojo: 0,
@@ -153,9 +173,23 @@
         function animate() {
             requestAnimationFrame( animate );
             controls.update();
+            // Hago un emit el usuario rota un eje
+            if (all.rotation.y != options.amarillo) {
+                socket.emit('update', {color: "amarillo", pos:options.amarillo});
+            }
+            if (redPivot.rotation.x != options.rojo) {
+                socket.emit('update', {color: "rojo", pos:options.rojo});
+            }
+            if (pinkPivot.rotation.x != options.rosa) {
+                socket.emit('update', {color: "rosa", pos:options.rosa});
+            }
+            if (pivotGroup.rotation.x != options.naranja) {
+                socket.emit('update', {color: "naranja", pos: Math.round(options.naranja* 100) / 100});
+            }
+            
             redPivot.rotation.x = options.rojo
             pinkPivot.rotation.x = options.rosa;
-            pivotGroup.rotation.x = options.naranja;
+            pivotGroup.rotation.x = Math.round(options.naranja* 100) / 100;
             all.rotation.y = options.amarillo;
 
             renderer.render( scene, camera );
